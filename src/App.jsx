@@ -1,71 +1,60 @@
-import { useState } from 'react'
+const [clubFavorito, setClubFavorito] = useState("Ninguno");
+<TabsTrigger value="clubes"><Star size={18}/></TabsTrigger>
+</TabsList>
 
-export default function App() {
-  const [clubFavorito, setClubFavorito] = useState('Ninguno')
 
-  const partidos = [
-    { fecha: '20 Sep', hora: '6:00 PM', equipos: 'Club A vs Club B' },
-    { fecha: '25 Sep', hora: '4:30 PM', equipos: 'Club C vs Club D' },
-    { fecha: '30 Sep', hora: '7:00 PM', equipos: 'Club E vs Club F' },
-  ]
+{/* Partidos */}
+<TabsContent value="partidos">
+<h2 className="font-bold text-lg mt-4">Próximos Partidos</h2>
+<ul className="mt-2 space-y-2">
+{partidos.map((p, i) => (
+<li key={i} className="p-3 bg-white rounded-xl shadow flex justify-between">
+<span>{p.fecha} - {p.hora}</span>
+<span className="font-medium">{p.equipos}</span>
+</li>
+))}
+</ul>
+</TabsContent>
 
-  const jugadoras = [
-    { nombre: 'Laura Gómez', stat: '5 goles' },
-    { nombre: 'Ana Martínez', stat: '3 asistencias' },
-    { nombre: 'Carla Torres', stat: '90% efectividad' },
-  ]
 
-  const estadios = [
-    { nombre: 'Estadio Metropolitano', ciudad: 'Barranquilla' },
-    { nombre: 'El Campín', ciudad: 'Bogotá' },
-    { nombre: 'Atanasio Girardot', ciudad: 'Medellín' },
-  ]
+{/* Jugadoras */}
+<TabsContent value="jugadoras">
+<h2 className="font-bold text-lg mt-4">Jugadoras Destacadas</h2>
+<ul className="mt-2 space-y-2">
+{jugadoras.map((j, i) => (
+<li key={i} className="p-3 bg-white rounded-xl shadow flex justify-between">
+<span>{j.nombre}</span>
+<span className="text-pink-600 font-medium">{j.stat}</span>
+</li>
+))}
+</ul>
+</TabsContent>
 
-  const clubes = ['Club A', 'Club B', 'Club C', 'Club D']
 
-  const urlApp = 'https://vitalfem.vercel.app'
+{/* Estadios */}
+<TabsContent value="estadios">
+<h2 className="font-bold text-lg mt-4">Estadios</h2>
+<ul className="mt-2 space-y-2">
+{estadios.map((e, i) => (
+<li key={i} className="p-3 bg-white rounded-xl shadow">
+<span className="font-medium">{e.nombre}</span>
+<p className="text-sm text-gray-500">{e.ciudad}</p>
+</li>
+))}
+</ul>
+</TabsContent>
 
-  return (
-    <div style={{ fontFamily: 'Arial', padding: 20, maxWidth: 600, margin: '0 auto' }}>
-      <h1 style={{ color: '#ec4899', textAlign: 'center' }}>VitalFem ⚽ Fútbol Femenino</h1>
-      <p style={{ textAlign: 'center' }}>Escanea el QR en tu botella y apoya la visibilidad del fútbol femenino</p>
 
-      <div style={{ textAlign: 'center', margin: '20px 0' }}>
-        <img
-          src={`https://chart.googleapis.com/chart?cht=qr&chl=${encodeURIComponent(urlApp)}&chs=200x200&chld=L|0`}
-          alt="QR Code"
-        />
-      </div>
-
-      <h2>Próximos Partidos</h2>
-      <ul>
-        {partidos.map((p, i) => (
-          <li key={i}>{p.fecha} - {p.hora} | {p.equipos}</li>
-        ))}
-      </ul>
-
-      <h2>Jugadoras Destacadas</h2>
-      <ul>
-        {jugadoras.map((j, i) => (
-          <li key={i}>{j.nombre} - {j.stat}</li>
-        ))}
-      </ul>
-
-      <h2>Estadios</h2>
-      <ul>
-        {estadios.map((e, i) => (
-          <li key={i}>{e.nombre} ({e.ciudad})</li>
-        ))}
-      </ul>
-
-      <h2>Selecciona tu Club Favorito</h2>
-      {clubes.map((c, i) => (
-        <button key={i} onClick={() => setClubFavorito(c)} style={{ margin: 5, padding: '5px 10px' }}>
-          {c}
-        </button>
-      ))}
-
-      <p style={{ marginTop: 10 }}>⭐ Club favorito actual: <strong style={{ color: '#ec4899' }}>{clubFavorito}</strong></p>
-    </div>
-  )
-}
+{/* Clubes favoritos */}
+<TabsContent value="clubes">
+<h2 className="font-bold text-lg mt-4">Selecciona tu Club Favorito</h2>
+<div className="grid grid-cols-2 gap-2 mt-2">
+{clubes.map((c, i) => (
+<Button key={i} variant="outline" onClick={() => setClubFavorito(c)}>
+{c}
+</Button>
+))}
+</div>
+<p className="mt-4 text-center text-gray-600">
+⭐ Club favorito actual: <span className="font-bold text-pink-600">{clubFavorito}</span>
+</p>
